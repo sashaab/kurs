@@ -1,0 +1,32 @@
+=breadcrumb_tag do
+  %li.active
+    Таблицы
+  %li
+    = link_to t('activerecord.models.good'), goods_path
+  %li
+    = @good.title
+.page-header
+  %h1= t('headers.goods.new')
+
+%dl
+  %dt= Good.human_attribute_name(:title)
+  %dd= @good.title
+  %dt= Good.human_attribute_name(:short_description)
+  %dd= @good.short_description
+  %dt= Good.human_attribute_name(:full_description)
+  %dd= @good.full_description
+  - if @current_role_user.is_admin?
+    %dt= Good.human_attribute_name(:base_price)
+    %dd= @good.base_price
+  %dt= Good.human_attribute_name(:current_price)
+  %dd= @good.current_price
+  %dt= Good.human_attribute_name(:quantity_in_stock)
+  %dd= @good.quantity_in_stock
+  %dt= Good.human_attribute_name(:article)
+  %dd= @good.article
+  %dt= Good.human_attribute_name(:minimum_quantity)
+  %dd= @good.minimum_quantity
+
+= link_to 'Edit', edit_good_path(@good)
+\|
+= link_to t('app.helpers.back'), goods_path

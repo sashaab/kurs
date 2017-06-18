@@ -1,0 +1,44 @@
+%aside.hidden-print#sidebar-wrapper
+  %ul.sidebar-nav
+    %li.header
+      .navbar-header
+        .navbar-brand
+          = link_to root_path do
+            = image_tag 'logo.png', alt: t('app.company.short_name')
+            = t('app.name')
+    %li
+      = link_to login_path do
+        = @current_user.blank? ? 'войти' : @current_user.email
+      - if @current_user.blank?
+        = link_to login_path do
+          = fa_icon 'sign-in'
+      - else
+        = link_to logout_path do
+          = fa_icon 'sign-out'
+    - side_bar_items(@current_role_user).each do |item|
+      %li
+        - if item.has_key?(:children)
+          = link_to('#', class: 'with-subitems') do
+            = fa_icon(item[:icon], class: 'menu-icon')
+            = item[:name]
+            %span.pull-right.carret
+              = fa_icon('angle-down', class: 'menu-icon')
+          %ul.subitems{class: (item[:children].any?{ |subitem| is_open?(subitem[:controller], subitem[:action]) } ? :subopen : :subclose)}
+            - item[:children].each do |subitem|
+              %li.subitem
+                - if subitem.has_key?(:params)
+                  = link_to(url_for({controller: subitem[:controller], action: subitem[:action]}.merge(subitem[:params])), class: subitem[:class]) do
+                    = fa_icon(subitem[:icon], class: 'menu-icon')
+                    = subitem[:name]
+                - else
+                  = link_to(url_for(controller: subitem[:controller], action: subitem[:action]), class: subitem[:class]) do
+                    = fa_icon(subitem[:icon], class: 'menu-icon')
+                    = subitem[:name]
+        - else
+          = link_to(url_for(controller: item[:controller], action: item[:action]), class: item[:class]) do
+            = fa_icon(item[:icon], class: 'menu-icon')
+            = item[:name]
+    %li.footer
+      %div
+        Sashaab
+        %div

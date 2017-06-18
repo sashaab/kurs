@@ -1,0 +1,23 @@
+=breadcrumb_tag do
+  %li.active
+    = @client.id
+  %li
+    = link_to 'Клиенты', clients_path
+  %li
+    Клиенты
+
+%h1= @client.id
+
+%dl
+  %dt= Client.human_attribute_name(:name)
+  %dd= @client.name
+  %dt= Client.human_attribute_name(:phone)
+  %dd= @client.phone
+  %dt= Client.human_attribute_name(:address)
+  %dd= @client.address
+  %dt= Client.human_attribute_name(:email)
+  %dd= @client.email
+
+= link_to 'Изменить', edit_client_path(@client)
+\|
+= link_to 'Назад', clients_path

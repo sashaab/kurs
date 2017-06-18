@@ -1,0 +1,16 @@
+- if is_admin?
+  =breadcrumb_tag do
+    %li.active
+      Таблицы
+    %li
+      = link_to t('activerecord.models.good'), goods_path
+    %li
+      = t('headers.goods.new')
+
+  %h1= t('headers.goods.new')
+
+  = render 'form'
+
+  = link_to t('helpers.назад'), goods_path
+- else
+  %h1{style: "color: red"} Доступ запрещен

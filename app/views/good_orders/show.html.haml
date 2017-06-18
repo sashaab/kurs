@@ -1,0 +1,17 @@
+=breadcrumb_tag do
+  %li.active
+    = @good_order.id
+  %li
+    = link_to 'Лист', good_orders_path
+  %li
+    Лист
+
+%h1= @good_order.id
+
+%dl
+  %dt= GoodOrder.human_attribute_name(:good_id)
+  %dd= @good_order.good_id
+  %dt= GoodOrder.human_attribute_name(:order_id)
+  %dd= @good_order.order_id
+  %dt= GoodOrder.human_attribute_name(:digit)
+  %dd= @good_order.digit

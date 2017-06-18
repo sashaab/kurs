@@ -1,0 +1,13 @@
+- if @current_user.present?
+  =breadcrumb_tag do
+    %li.active
+      = t('headers.roles.new')
+    %li
+      = link_to 'Роли', roles_path
+    %li
+      Администрирование
+
+.page-header
+  %h1= t('headers.roles.new')
+
+= render 'form'

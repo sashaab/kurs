@@ -1,0 +1,22 @@
+.col-md-6
+  %div{class: 'panel panel-'+ (i.kind_of?(Integer) ? 'success' : 'info')}
+    .panel-heading
+      Товар
+      = i
+      %span.toright
+        = link_to_remove_good(lf)
+      .clearfix
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = lf.label :good_id
+            = lf.select(:good_id,
+            options_for_select(good_options, lf.object.good_id),
+            {}, class: 'form-control')
+            = lf.error_messages_for(:good_id)
+        .col-md-6
+          .form-group
+            = lf.label :digit
+            = lf.text_field :digit, class: 'form-control'
+            = lf.error_messages_for(:digit)

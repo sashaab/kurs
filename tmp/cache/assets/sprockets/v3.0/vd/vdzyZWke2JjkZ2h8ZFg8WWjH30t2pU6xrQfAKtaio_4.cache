@@ -1,0 +1,40 @@
+I"�(function() {
+  var insert_form, ready, save_form;
+
+  save_form = function() {
+    if ($('#order_client_id').val() === "- Создание нового -") {
+      $('#order_client_id').remove();
+      return $('#order_client_attributes_id').remove();
+    } else if ($('#order_client_id').val() === '- Редактирование -') {
+      return $('#order_client_id').remove();
+    }
+  };
+
+  insert_form = function() {
+    var f;
+    f = $("#client-fieldset").attr("data-content");
+    if ($("#order_client_id").val() === '') {
+      return $("#client-fields").html('Без клиента');
+    } else if ($('#order_client_id').val() === '- Создание нового -') {
+      return $("#client-fields").html(f);
+    } else if ($('#order_client_id').val() === '- Редактирование -') {
+      return $("#client-fields").html(f);
+    } else {
+      return $("#client-fields").html('Выбран существующий клиент');
+    }
+  };
+
+  ready = function() {
+    insert_form();
+    $("#order_client_id").change(function() {
+      return insert_form();
+    });
+    return $('#save').on('click', save_form);
+  };
+
+  $(document).ready(ready);
+
+  $(document).on('page:load', ready);
+
+}).call(this);
+:ET

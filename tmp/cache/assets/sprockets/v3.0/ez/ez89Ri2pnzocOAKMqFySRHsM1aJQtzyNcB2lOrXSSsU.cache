@@ -1,0 +1,28 @@
+I"�(function() {
+  var ajax_post_order_hall;
+
+  ajax_post_order_hall = function(e) {
+    var selectedOrder;
+    selectedOrder = $(this).val();
+    return $.ajax({
+      url: '/fill_order_form',
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        order_id: +$(this).val()
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        return console.log("AJAX Error: " + textStatus);
+      },
+      success: function(data, textStatus, jqXHR) {
+        return console.log("Ajax завершен!");
+      }
+    });
+  };
+
+  $(document).on('turbolinks:load', function() {
+    return $('#select_existing_order').on('change', ajax_post_fill_order);
+  });
+
+}).call(this);
+:ET

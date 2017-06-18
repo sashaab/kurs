@@ -1,0 +1,19 @@
+= form_for @good_order do |f|
+  - if @good_order.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@good_order.errors.count, "error")} Ошибка:"
+      %ul
+        - @good_order.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :good_id
+    = f.select :good_id, Good.all.map{|x| [x.title, x.id]}
+  .field
+    = f.label :order_id
+    = f.select :order_id, Order.all.map{|x| [x.order_number, x.id]}
+  .field
+    = f.label :digit
+    = f.number_field :digit
+  .actions
+    = f.submit t("helpers.submit.submit")

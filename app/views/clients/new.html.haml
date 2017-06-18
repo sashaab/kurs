@@ -1,0 +1,12 @@
+- if @current_client.present?
+  =breadcrumb_tag do
+    %li.active
+      = t('headers.clients.new')
+    %li
+      = link_to 'Клиенты', clients_path
+    %li
+      Новый Клиент
+
+  %h1= t('headers.clients.new')
+
+= render 'form'

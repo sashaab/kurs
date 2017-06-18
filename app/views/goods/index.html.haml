@@ -1,0 +1,52 @@
+=breadcrumb_tag do
+  %li.active
+    Таблицы
+  %li
+    = t('activerecord.models.good')
+
+.page-header
+  %h1= t('headers.goods.index')
+
+
+  %table.table.table-hover.table-striped
+    %caption
+      = link_to new_good_path, class: 'btn btn-success' do
+        = fa_icon :plus
+        = t('buttons.new.good')
+    %thead
+      %tr
+
+        %th= Good.human_attribute_name(:title)
+        %th= Good.human_attribute_name(:short_description)
+        %th= Good.human_attribute_name(:current_price)
+        %th= Good.human_attribute_name(:quantity_in_stock)
+        %th= Good.human_attribute_name(:article)
+        %th= Good.human_attribute_name(:minimum_quantity)
+        %th
+
+
+    %tbody
+    - @goods.each do |good|
+      %tr
+        %td{data: {label: Good.human_attribute_name(:title)} }
+          = good.title
+        %td{data: {label: Good.human_attribute_name(:short_description)} }
+          = good.short_description
+        %td.center{data: {label: Good.human_attribute_name(:current_price)} }
+          = good.current_price
+        %td.center{data: {label: Good.human_attribute_name(:quantity_in_stock)}}
+          = good.quantity_in_stock
+        %td.center{data: {label: Good.human_attribute_name(:article)}}
+          = good.article
+        %td.center{data: {label: Good.human_attribute_name(:minimum_quantity)}}
+          = good.minimum_quantity
+        %td
+          = link_to good, class: 'btn btn-warning' do
+            = fa_icon :eye
+
+          - if is_admin?
+            = link_to edit_good_path(good), class: 'btn btn-info' do
+              = fa_icon :edit
+
+            = link_to good, :method => :delete, :data => { :confirm => t('buttons.confirm.good') }, class: 'btn btn-danger' do
+              = fa_icon :times

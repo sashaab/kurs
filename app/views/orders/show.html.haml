@@ -1,0 +1,55 @@
+=breadcrumb_tag do
+  %li.active
+    Таблицы
+  %li
+    = link_to t('activerecord.models.order'), orders_path
+  %li
+    = @order.order_number
+
+.page-header
+  %h1= t('headers.orders.show')
+
+%dl
+  .panel.panel-default
+    .panel-heading
+      %dt= Order.human_attribute_name(:сlient)
+    .panel-body
+      %dt= Client.human_attribute_name(:name)
+      %dd= @order.client.name
+      %dt= Client.human_attribute_name(:phone)
+      %dd= @order.client.phone
+      %dt= Client.human_attribute_name(:address)
+      %dd= @order.client.address
+      %dt= Client.human_attribute_name(:email)
+      %dd= @order.client.email
+  %dt= Order.human_attribute_name(:order_number)
+  %dd= @order.order_number
+  %dt= Order.human_attribute_name(:payment_method)
+  %dd= @order.payment_method
+  %dt= Order.human_attribute_name(:delivery_method)
+  %dd= @order.delivery_method
+  .panel.panel-default
+    .panel-heading
+      %dt= Order.human_attribute_name(:good_order_goods)
+    .panel-body
+      - @order.good_orders.each do |l|
+        .panel.panel-default
+          .panel-heading
+            %dt= l.good.title
+          .panel-body
+            %dt= Good.human_attribute_name(:article)
+            %dd= l.good.article
+            %dt= Good.human_attribute_name(:current_price)
+            %dd= l.good.current_price
+            %dt= GoodOrder.human_attribute_name(:digit)
+            %dd= l.digit
+  %dt= Order.human_attribute_name(:cost_goods)
+  %dd= @order.cost_goods
+  %dt= Order.human_attribute_name(:total_cost)
+  %dd= @order.total_cost
+  %dt= Order.human_attribute_name(:order_date)
+  %dd= lnil(@order.order_date)
+
+= link_to t('app.helpers.edit'), edit_order_path(@order)
+\|
+= link_to t('app.helpers.back'), orders_path
