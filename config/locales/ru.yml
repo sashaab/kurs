@@ -122,7 +122,7 @@ ru:
         client: Клиент
       good/good_orders:
           <<: *good_orders
-      order: &orders
+      order:
         good: Товар
         order: Номер заказа
         digit: Кол-во товара
@@ -130,8 +130,7 @@ ru:
         order_id: Заказы_id
         good_order: Товары
         client: Клиент
-      good/orders:
-          <<: *orders
+        list_products: Список товаров
       errors:
         models:
           person:
@@ -140,6 +139,7 @@ ru:
                 check_sum: имеет неправильную контрольную сумму
           full_info: Описание
       good:
+        index: Списко товаров
         title: Название
         short_description: Краткое описание
         full_description: Полное описание
@@ -160,6 +160,7 @@ ru:
         order_number: Номер заказа
         payment_method: Способ оплаты
         delivery_method: Способ доставки
+        good_order_goods: Список товаров
         list_products: Список товаров
         cost_goods: Стоимость товара на момент заказа
         total_cost: Общая стоимость с доставкой

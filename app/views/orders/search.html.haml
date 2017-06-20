@@ -126,7 +126,7 @@
               = text_field_tag "search_order_number", nil, class: 'form-control', value: params["search_order_number"].nil? ? "" : params["search_order_number"]
           .col-md-6
             .form-group
-              = label_tag(Order.human_attribute_name(:good_order_goods))
+              = label_tag(Order.human_attribute_name(:list_products))
 
               = text_field_tag "search_order_good_order_goods", nil, class: 'form-control', value: params["search_order_good_order_goods"].nil? ? "" : params["search_order_good_order_goods"]
         .row
@@ -207,7 +207,6 @@
         %td.center= order.order_number
         %td.center= order.order_date
         %td.center= order.client.name
-        %td.center= order.good_orders.good.size
         %td.center= order.total_cost
         %td.right
           = link_to order, class: 'btn btn-warning' do
