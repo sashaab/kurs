@@ -191,24 +191,21 @@
 .page-header
   %h1 Результат поиска
 
-%table.table.table-hover.table-striped
-  %thead
-    %tr
-      %th= Order.human_attribute_name(:order_number)
-      %th= Order.human_attribute_name(:order_date)
-      %th= Client.human_attribute_name(:name)
-      %th Количество товарных наименований
-      %th= Order.human_attribute_name(:total_cost)
-      %th
-
-  %tbody
+.well
+  .row
+    .form-group
+    %dl
     - @result.each do |order|
-      %tr
-        %td.center= order.order_number
-        %td.center= order.order_date
-        %td.center= order.client.name
-        %td.center= order.total_cost
-        %td.right
+      .col-md-6
+        .well
+          %dt= Order.human_attribute_name(:order_number)
+          %dd= order.order_number
+          %dt= Order.human_attribute_name(:order_date)
+          %dd= order.order_date
+          %dt= Client.human_attribute_name(:name)
+          %dd= order.client.name
+          %dt= Order.human_attribute_name(:total_cost)
+          %dd= order.total_cost
           = link_to order, class: 'btn btn-warning' do
             = fa_icon :eye
             = t('buttons.show')

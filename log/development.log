@@ -6783,3 +6783,721 @@ Processing by OrdersController#search as HTML
   Rendered application/_flash_messages.html.haml (0.1ms)
   [1m[35mSQL (26.1ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-20 17:21:04.748511' WHERE "users"."id" = $1  [["id", 1]]
 Completed 200 OK in 123ms (Views: 90.4ms | ActiveRecord: 27.7ms)
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-20 20:23:36 +0300
+Processing by OrdersController#search as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (0.2ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  [1m[35mGood Load (0.4ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mSQL (0.7ms)[0m  SELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id"
+  Rendered orders/search.html.haml within layouts/application (36.3ms)
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.4ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (33.7ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-20 17:23:36.333730' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 121ms (Views: 80.5ms | ActiveRecord: 35.8ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-21 21:23:14 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (17.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (90.7ms)[0m  SELECT COUNT(*) FROM "roles"
+  [1m[36mRole Load (1.0ms)[0m  [1mSELECT "roles".* FROM "roles"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "roles".* FROM "roles"
+Processing by OrdersController#index as HTML
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 59ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2017-06-21 21:23:16 +0300
+Processing by WelcomeController#new as HTML
+  Rendered welcome/_form.html.haml (13.7ms)
+  Rendered welcome/new.html.haml within layouts/application (2117.9ms)
+  Rendered application/_sidebar.html.haml (45.5ms)
+  Rendered application/_flash_messages.html.haml (4.6ms)
+Completed 200 OK in 6782ms (Views: 6661.7ms | ActiveRecord: 1.8ms)
+
+
+Started POST "/try_login" for 127.0.0.1 at 2017-06-21 21:33:51 +0300
+Processing by WelcomeController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Wha+hsLJ1crCD56GsQBwfvtl3PcMxuuJcchQe0WU0LaODsBb5JyzAFw7ruuBR3ZXU3zAM3ReZMLZtmlGW9P82Q==", "email"=>"admin@localhost", "password"=>"[FILTERED]", "remember_me"=>"false", "commit"=>"Войти"}
+  [1m[36mUser Load (163.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = 'admin@localhost'  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (14.5ms)[0m  UPDATE "users" SET "failed_logins_count" = 0 WHERE "users"."id" = $1  [["id", 1]]
+  [1m[36mSQL (9.5ms)[0m  [1mUPDATE "users" SET "last_login_at" = '2017-06-21 18:33:51.775643' WHERE "users"."id" = $1[0m  [["id", 1]]
+  [1m[35mSQL (8.9ms)[0m  UPDATE "users" SET "last_login_from_ip_address" = '127.0.0.1' WHERE "users"."id" = $1  [["id", 1]]
+Redirected to http://localhost:3000/orders
+  [1m[36mSQL (5.9ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:33:51.799838' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 302 Found in 435ms (ActiveRecord: 202.4ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-21 21:33:51 +0300
+Processing by OrdersController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (16.6ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."user_id" = $1  ORDER BY "role_users"."id" ASC LIMIT 1[0m  [["user_id", 1]]
+  Rendered application/_breadcrumb.html.haml (4.2ms)
+  [1m[35mOrder Load (29.5ms)[0m  SELECT "orders".* FROM "orders"
+  [1m[36mClient Load (30.9ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRole Load (0.4ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mClient Load (0.4ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mClient Load (0.4ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 4]]
+  Rendered orders/index.html.haml within layouts/application (199.5ms)
+  Rendered application/_sidebar.html.haml (3.4ms)
+  Rendered application/_flash_messages.html.haml (0.2ms)
+  [1m[36mSQL (7.4ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:33:52.333223' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 200 OK in 496ms (Views: 219.3ms | ActiveRecord: 95.1ms)
+
+
+Started GET "/good_orders" for 127.0.0.1 at 2017-06-21 21:36:23 +0300
+Processing by GoodOrdersController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (0.2ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 1], ["id", 1]]
+  [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mGoodOrder Load (51.0ms)[0m  SELECT "good_orders".* FROM "good_orders"
+  [1m[36mGood Load (39.3ms)[0m  [1mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mOrder Load (0.8ms)[0m  SELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mGood Load (0.6ms)[0m  [1mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mOrder Load (0.6ms)[0m  SELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mGood Load (0.6ms)[0m  [1mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mOrder Load (0.5ms)[0m  SELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT 1  [["id", 10]]
+  Rendered good_orders/index.html.haml within layouts/application (209.6ms)
+  Rendered application/_sidebar.html.haml (8.5ms)
+  Rendered application/_flash_messages.html.haml (3.3ms)
+  [1m[36mSQL (13.1ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:36:24.305415' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 200 OK in 428ms (Views: 207.2ms | ActiveRecord: 115.7ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-21 21:36:26 +0300
+Processing by OrdersController#index as HTML
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (0.4ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 1], ["id", 1]]
+  Rendered application/_breadcrumb.html.haml (3.4ms)
+  [1m[36mOrder Load (0.4ms)[0m  [1mSELECT "orders".* FROM "orders"[0m
+  [1m[35mClient Load (0.3ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mClient Load (0.3ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mClient Load (0.3ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  Rendered orders/index.html.haml within layouts/application (25.7ms)
+  Rendered application/_sidebar.html.haml (4.5ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (27.7ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:36:26.609479' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 107ms (Views: 70.1ms | ActiveRecord: 31.0ms)
+
+
+Started GET "/orders/1" for 127.0.0.1 at 2017-06-21 21:36:30 +0300
+Processing by OrdersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (0.8ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  [1m[35mOrder Load (1.9ms)[0m  SELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered application/_breadcrumb.html.haml (0.3ms)
+  [1m[36mClient Load (0.3ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mGoodOrder Load (0.3ms)[0m  SELECT "good_orders".* FROM "good_orders" WHERE "good_orders"."order_id" = $1  [["order_id", 1]]
+  [1m[36mGood Load (0.2ms)[0m  [1mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered orders/show.html.haml within layouts/application (52.1ms)
+  [1m[35mRole Load (0.3ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.4ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (10.6ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:36:30.631480' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 200 OK in 151ms (Views: 118.2ms | ActiveRecord: 16.7ms)
+
+
+Started GET "/orders/1/edit" for 127.0.0.1 at 2017-06-21 21:36:36 +0300
+Processing by OrdersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (0.3ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 1], ["id", 1]]
+  [1m[36mOrder Load (0.4ms)[0m  [1mSELECT  "orders".* FROM "orders" WHERE "orders"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_breadcrumb.html.haml (0.1ms)
+  Rendered application/_error_messages_for.html.haml (15.9ms)
+  [1m[35mClient Load (0.3ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered application/_error_messages_for_attr.html.haml (2.8ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.0ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.0ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  [1m[36mGood Load (0.4ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.0ms)
+  Rendered orders/_one_good_order_form.html.haml (9.2ms)
+  [1m[35mGoodOrder Load (0.3ms)[0m  SELECT "good_orders".* FROM "good_orders" WHERE "good_orders"."order_id" = $1  [["order_id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.0ms)
+  Rendered orders/_one_good_order_form_for_edit.html.haml (9.1ms)
+  Rendered orders/_form_for_edit.html.haml (133.9ms)
+  Rendered orders/edit.html.haml within layouts/application (157.3ms)
+  [1m[35mRole Load (0.3ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.3ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (22.1ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:36:36.521938' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 200 OK in 246ms (Views: 214.1ms | ActiveRecord: 24.9ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-21 21:36:44 +0300
+Processing by OrdersController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (0.2ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 1], ["id", 1]]
+  Rendered application/_breadcrumb.html.haml (0.2ms)
+  [1m[36mOrder Load (0.3ms)[0m  [1mSELECT "orders".* FROM "orders"[0m
+  [1m[35mClient Load (0.1ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mClient Load (0.1ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mClient Load (0.1ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  Rendered orders/index.html.haml within layouts/application (11.4ms)
+  Rendered application/_sidebar.html.haml (4.8ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (23.5ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:36:44.543365' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 86ms (Views: 56.4ms | ActiveRecord: 25.2ms)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2017-06-21 21:36:45 +0300
+Processing by OrdersController#new as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (0.9ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  Rendered application/_breadcrumb.html.haml (0.6ms)
+  Rendered application/_error_messages_for.html.haml (0.1ms)
+  [1m[35mClient Load (0.5ms)[0m  SELECT "clients".* FROM "clients"
+  Rendered orders/_client_form.html.haml (8.8ms)
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "orders"[0m
+  [1m[35mOrder Load (0.6ms)[0m  SELECT  "orders".* FROM "orders"  ORDER BY "orders"."id" DESC LIMIT 1
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  [1m[36mGood Load (0.5ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered orders/_one_good_order_form.html.haml (9.4ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "goods".* FROM "goods"
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered orders/_one_good_order_form.html.haml (6.9ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.1ms)
+  Rendered application/_error_messages_for_attr.html.haml (0.0ms)
+  Rendered orders/_form.html.haml (125.1ms)
+  Rendered orders/new.html.haml within layouts/application (154.4ms)
+  [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_sidebar.html.haml (5.1ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (15.1ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:36:45.925863' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 254ms (Views: 217.2ms | ActiveRecord: 20.0ms)
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-21 21:37:37 +0300
+Processing by OrdersController#search as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (0.6ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  [1m[35mGood Load (0.3ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mSQL (1.1ms)[0m  SELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id"
+  Rendered orders/search.html.haml within layouts/application (115.1ms)
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.9ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (12.8ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:37:37.848590' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 289ms (Views: 259.0ms | ActiveRecord: 16.6ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2017-06-21 21:38:38 +0300
+Processing by WelcomeController#new as HTML
+  Rendered welcome/_form.html.haml (6.5ms)
+  Rendered welcome/new.html.haml within layouts/application (10.7ms)
+  Rendered application/_sidebar.html.haml (2.5ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (33.4ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:38.457509' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 96ms (Views: 59.4ms | ActiveRecord: 33.6ms)
+
+
+Started POST "/try_login" for 127.0.0.1 at 2017-06-21 21:38:45 +0300
+Processing by WelcomeController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"R0QhA3guBkch1h/+xdr3FTTRGwEkM2ZfICGVXvSsniaTXF/eXntgjb/iL5P1nfE8nMgHxVyr6RSIX6xj6uuySQ==", "email"=>"user@localhost", "password"=>"[FILTERED]", "remember_me"=>"false", "commit"=>"Войти"}
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = 'user@localhost'  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (40.6ms)[0m  UPDATE "users" SET "failed_logins_count" = 0 WHERE "users"."id" = $1  [["id", 2]]
+  [1m[36mSQL (32.5ms)[0m  [1mUPDATE "users" SET "last_login_at" = '2017-06-21 18:38:45.837721' WHERE "users"."id" = $1[0m  [["id", 2]]
+  [1m[35mSQL (16.7ms)[0m  UPDATE "users" SET "last_login_from_ip_address" = '127.0.0.1' WHERE "users"."id" = $1  [["id", 2]]
+Redirected to http://localhost:3000/
+  [1m[36mSQL (6.7ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:45.893678' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 302 Found in 249ms (ActiveRecord: 97.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-06-21 21:38:45 +0300
+Processing by WelcomeController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Load (0.3ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 2], ["id", 1]]
+  [1m[36mRoleUser Load (0.4ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."user_id" = $1  ORDER BY "role_users"."id" ASC LIMIT 1[0m  [["user_id", 2]]
+  Rendered welcome/index.html.haml within layouts/application (4.8ms)
+  [1m[35mRole Load (0.2ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered application/_sidebar.html.haml (3.8ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (19.1ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:46.027232' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 200 OK in 102ms (Views: 74.8ms | ActiveRecord: 20.5ms)
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-21 21:38:49 +0300
+Processing by OrdersController#search as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Load (0.2ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mRoleUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 2], ["id", 2]]
+  [1m[36mGood Load (0.3ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mSQL (1.0ms)[0m  [1mSELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id"[0m
+  Rendered orders/search.html.haml within layouts/application (16.2ms)
+  [1m[35mRole Load (0.2ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered application/_sidebar.html.haml (3.9ms)
+  Rendered application/_flash_messages.html.haml (0.2ms)
+  [1m[36mSQL (28.0ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:49.202043' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 200 OK in 99ms (Views: 62.5ms | ActiveRecord: 30.1ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-21 21:38:51 +0300
+Processing by OrdersController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Load (0.3ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mRoleUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 2], ["id", 2]]
+  Rendered application/_breadcrumb.html.haml (0.1ms)
+  [1m[36mOrder Load (0.4ms)[0m  [1mSELECT "orders".* FROM "orders"[0m
+  [1m[35mClient Load (0.2ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mClient Load (0.1ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mClient Load (0.2ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  Rendered orders/index.html.haml within layouts/application (10.0ms)
+  Rendered application/_sidebar.html.haml (2.4ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (24.9ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:51.557226' WHERE "users"."id" = $1  [["id", 2]]
+Completed 200 OK in 77ms (Views: 46.5ms | ActiveRecord: 26.8ms)
+
+
+Started GET "/goods" for 127.0.0.1 at 2017-06-21 21:38:53 +0300
+Processing by GoodsController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mRoleUser Load (0.4ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 2], ["id", 2]]
+  Rendered application/_breadcrumb.html.haml (0.2ms)
+  [1m[35mGood Load (0.5ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  Rendered goods/index.html.haml within layouts/application (41.4ms)
+  Rendered application/_sidebar.html.haml (3.1ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (9.1ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:53.669842' WHERE "users"."id" = $1  [["id", 2]]
+Completed 200 OK in 150ms (Views: 128.9ms | ActiveRecord: 11.5ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-21 21:38:54 +0300
+Processing by OrdersController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mRoleUser Load (0.7ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 2], ["id", 2]]
+  Rendered application/_breadcrumb.html.haml (0.7ms)
+  [1m[35mOrder Load (0.7ms)[0m  SELECT "orders".* FROM "orders"
+  [1m[36mClient Load (0.4ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRole Load (0.4ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mClient Load (0.3ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mClient Load (0.3ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 4]]
+  Rendered orders/index.html.haml within layouts/application (24.9ms)
+  Rendered application/_sidebar.html.haml (9.8ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (26.6ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-21 18:38:54.551338' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 200 OK in 125ms (Views: 81.5ms | ActiveRecord: 30.8ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-26 19:28:58 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (24.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (10.7ms)[0m  SELECT COUNT(*) FROM "roles"
+  [1m[36mRole Load (0.9ms)[0m  [1mSELECT "roles".* FROM "roles"[0m
+  [1m[35mCACHE (0.1ms)[0m  SELECT "roles".* FROM "roles"
+Processing by OrdersController#index as HTML
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 31ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2017-06-26 19:28:59 +0300
+Processing by WelcomeController#new as HTML
+  Rendered welcome/_form.html.haml (19.7ms)
+  Rendered welcome/new.html.haml within layouts/application (659.7ms)
+  Rendered application/_sidebar.html.haml (10.5ms)
+  Rendered application/_flash_messages.html.haml (3.2ms)
+Completed 200 OK in 1191ms (Views: 1135.7ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/try_login" for 127.0.0.1 at 2017-06-26 19:29:03 +0300
+Processing by WelcomeController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"5yx8XuMadZfOQmTpy6GECI7FBKUSuLrJt78mFESTPF6aQiHWmMJ5dAzLf1+OH2OqsFGtdxGJ1Uj3CMH965XgQw==", "email"=>"user@localhost", "password"=>"[FILTERED]", "remember_me"=>"false", "commit"=>"Войти"}
+  [1m[36mUser Load (155.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = 'user@localhost'  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (15.1ms)[0m  UPDATE "users" SET "failed_logins_count" = 0 WHERE "users"."id" = $1  [["id", 2]]
+  [1m[36mSQL (9.8ms)[0m  [1mUPDATE "users" SET "last_login_at" = '2017-06-26 16:29:03.989035' WHERE "users"."id" = $1[0m  [["id", 2]]
+  [1m[35mSQL (10.0ms)[0m  UPDATE "users" SET "last_login_from_ip_address" = '127.0.0.1' WHERE "users"."id" = $1  [["id", 2]]
+Redirected to http://localhost:3000/orders
+  [1m[36mSQL (4.6ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-26 16:29:04.014407' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 302 Found in 426ms (ActiveRecord: 195.4ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2017-06-26 19:29:04 +0300
+Processing by OrdersController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Load (21.5ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."user_id" = $1  ORDER BY "role_users"."id" ASC LIMIT 1[0m  [["user_id", 2]]
+  Rendered application/_breadcrumb.html.haml (3.1ms)
+  [1m[35mOrder Load (17.1ms)[0m  SELECT "orders".* FROM "orders"
+  [1m[36mClient Load (19.8ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRole Load (0.4ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mClient Load (0.4ms)[0m  [1mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mClient Load (0.4ms)[0m  SELECT  "clients".* FROM "clients" WHERE "clients"."id" = $1 LIMIT 1  [["id", 4]]
+  Rendered orders/index.html.haml within layouts/application (163.1ms)
+  Rendered application/_sidebar.html.haml (2.6ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (16.2ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-26 16:29:04.482142' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 200 OK in 449ms (Views: 182.0ms | ActiveRecord: 83.4ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2017-06-26 19:29:07 +0300
+Processing by WelcomeController#new as HTML
+  Rendered welcome/_form.html.haml (7.6ms)
+  Rendered welcome/new.html.haml within layouts/application (13.2ms)
+  Rendered application/_sidebar.html.haml (8.1ms)
+  Rendered application/_flash_messages.html.haml (2.3ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mSQL (64.3ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-26 16:29:07.318790' WHERE "users"."id" = $1[0m  [["id", 2]]
+Completed 200 OK in 132ms (Views: 64.7ms | ActiveRecord: 64.6ms)
+
+
+Started POST "/try_login" for 127.0.0.1 at 2017-06-26 19:29:15 +0300
+Processing by WelcomeController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"NNH91y8jF2UnhPCstnW5szqIWnBN0fsKpRpPXEn8x31Jv6BfVPsbhuUN6xrzy14RBBzzok7glIvlrai15vobYA==", "email"=>"admin@localhost", "password"=>"[FILTERED]", "remember_me"=>"false", "commit"=>"Войти"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = 'admin@localhost'  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mSQL (41.2ms)[0m  [1mUPDATE "users" SET "failed_logins_count" = 0 WHERE "users"."id" = $1[0m  [["id", 1]]
+  [1m[35mSQL (31.4ms)[0m  UPDATE "users" SET "last_login_at" = '2017-06-26 16:29:15.660680' WHERE "users"."id" = $1  [["id", 1]]
+  [1m[36mSQL (30.8ms)[0m  [1mUPDATE "users" SET "last_login_from_ip_address" = '127.0.0.1' WHERE "users"."id" = $1[0m  [["id", 1]]
+Redirected to http://localhost:3000/
+  [1m[35mSQL (7.4ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-26 16:29:15.728685' WHERE "users"."id" = $1  [["id", 1]]
+Completed 302 Found in 261ms (ActiveRecord: 111.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-06-26 19:29:15 +0300
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (0.3ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mRoleUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 2]]
+  [1m[35mRoleUser Load (1.1ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."user_id" = $1  ORDER BY "role_users"."id" ASC LIMIT 1  [["user_id", 1]]
+  Rendered welcome/index.html.haml within layouts/application (4.6ms)
+  [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.5ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (16.7ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-26 16:29:15.975668' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 222ms (Views: 83.1ms | ActiveRecord: 19.5ms)
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-26 19:29:20 +0300
+Processing by OrdersController#search as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (0.8ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  [1m[35mGood Load (45.3ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mSQL (55.6ms)[0m  SELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id"
+  Rendered orders/search.html.haml within layouts/application (347.3ms)
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_sidebar.html.haml (5.0ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (12.8ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-26 16:29:20.694430' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 461ms (Views: 324.7ms | ActiveRecord: 124.3ms)
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-26 19:51:30 +0300
+Processing by OrdersController#search as HTML
+  [1m[36mUser Load (2.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (1.0ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  [1m[35mGood Load (0.4ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mSQL (0.7ms)[0m  SELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id"
+  Rendered orders/search.html.haml within layouts/application (46.7ms)
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.5ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[35mSQL (7.4ms)[0m  UPDATE "users" SET "last_activity_at" = '2017-06-26 16:51:31.061129' WHERE "users"."id" = $1  [["id", 1]]
+Completed 200 OK in 116ms (Views: 91.1ms | ActiveRecord: 13.5ms)
+
+
+Started GET "/assets/theme.self-eafe6900795524ee2484196eaf47492596d89edf8e4e7a9a78377f8fd3285366.css?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/bootstrap-datetimepicker.self-79d1c2e6e8b0d90803cfd9ad1a8bec31d6cde65b41438ec892929ce07f368ac2.css?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/application.self-d780b5a1fcfa8264d62c91ecf9a3d5b2acd019cbef1b70d7fc632139857b7b1e.css?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/jquery.maskedinput.self-4e0cf4cd8f2c531aed9d38ff9537af1065f92408fb369be61ab0c82b40000ca8.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/bootstrap.self-b38817c3e3a3049abb1fc08dd6ae448b23330f8453226efdb074710209474f75.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/bootstrap-growl.min.self-8a40746a094cfdde4b396d4e88457397b744d7042d3cd8f7dd0aaa9c1814a4c5.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/moment.self-c99e0f02d41c61d0fd120e8fde6f9277b7ade69ecdac6c27872f5e631fb6cf38.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/bootstrap-datetimepicker.self-f7eed811e1c58d1cdbc448230279684b07653dcf7d067a676dfa60ad370f8407.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/main.self-20066a7e08ecc2d7b937fa15cc8dcd176775c91de22295d01937a7e70ce1b6d0.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/clients.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/good_orders.self-d331dccd13dc6e7488e67957b8c01280426ac2c3cbee54643d32edcbddaf8877.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/goods.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/growl_messages.self-398f787b13e0f4b46ee38392cc4606d6883a92b8f79cd19a9e3c5c4f358cfb0d.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/moment/ru.self-58fad0e6c5e51bdf3f357ccc5e991e7c729463209b9aaaa3cdd88a7cc4d40396.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/orders.self-7d901b68ad4042e7ae96cfa954376eaa73a047209534c856c6efc73a51a42d81.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/password_resets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/role_users.self-1878dd443f16e8cfe65a1150cdfbb48d9d1fde90d019b6ad8407f7db197b2934.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/roles.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/sidebar.self-9de08734b770e1d724d9ec0f5cc40ed784c495e1f328ac6ad09b33b4ed037919.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/welcome.self-62fe1ba3a628b58f4fd05bd5c07745afba414a81bf6bcf6667b043c255efe449.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/application.self-16c207b3ca1b52afcfc7f4b662487caf1bbe084a6656bb15f693ab9de2d11be7.js?body=1" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/logo-6f1545a4a342de939e2a3a77e7f704975b28d8157a9e4d45050a667eca64a54b.png" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/gears-c73a2796db66a2ae730c595dc9cddfbbbd319737e0eaa442bf5318c6d538e167.gif" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/open_sans-7a723d2f99415f393e2537d9b0b0ba4c1b4d7a1ea964d1abdce0f310d92643ad.woff" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/fontawesome-webfont-2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe.woff2" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/intro-fcbfae1e42f1d4ee8bc05f4a9f22c85215afd391b7fb909aa112346803c70dd1.woff" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/open_sans_light-09fd48874849a3dfa4a496483dd50687a91062ed0f57c9f00d3b73a394f50337.woff" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/open_sans_bold-0628cef3bdb6e9823751f942a02252ae562bdfb98f94f2de68e176c35b7c84ba.woff" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/assets/favicon-32x32-4ca470fc04392072361a63750d46a551c827c63cb660acbcf899231936339d8d.png" for 127.0.0.1 at 2017-06-26 19:51:31 +0300
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-26 20:10:38 +0300
+Processing by OrdersController#search as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Load (1.1ms)[0m  SELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1[0m  [["user_id", 1], ["id", 1]]
+  Rendered orders/search.html.haml within layouts/application (35.2ms)
+Completed 500 Internal Server Error in 52ms (ActiveRecord: 3.0ms)
+
+ActionView::Template::Error (Illegal nesting: content can't be both given on the same line as %dd and nested within it.):
+    206:           %dd= order.client.name
+    207:           %dt= Order.human_attribute_name(:total_cost)
+    208:           %dd= order.total_cost
+    209:             = link_to order, class: 'btn btn-warning' do
+    210:               = fa_icon :eye
+    211:               = t('buttons.show')
+  app/views/orders/search.html.haml:209
+
+
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (10.4ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /var/lib/gems/2.3.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (44.5ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (15.8ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /var/lib/gems/2.3.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (32.5ms)
+
+
+Started GET "/orders/search" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+Processing by OrdersController#search as HTML
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (0.4ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 1], ["id", 1]]
+  [1m[36mGood Load (0.2ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mSQL (0.7ms)[0m  [1mSELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id"[0m
+  Rendered orders/search.html.haml within layouts/application (42.6ms)
+  [1m[35mRole Load (0.2ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.2ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (34.9ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-26 17:11:08.399051' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 200 OK in 128ms (Views: 81.5ms | ActiveRecord: 37.6ms)
+
+
+Started GET "/assets/theme.self-eafe6900795524ee2484196eaf47492596d89edf8e4e7a9a78377f8fd3285366.css?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/bootstrap-datetimepicker.self-79d1c2e6e8b0d90803cfd9ad1a8bec31d6cde65b41438ec892929ce07f368ac2.css?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/application.self-d780b5a1fcfa8264d62c91ecf9a3d5b2acd019cbef1b70d7fc632139857b7b1e.css?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/jquery.maskedinput.self-4e0cf4cd8f2c531aed9d38ff9537af1065f92408fb369be61ab0c82b40000ca8.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/bootstrap.self-b38817c3e3a3049abb1fc08dd6ae448b23330f8453226efdb074710209474f75.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/bootstrap-growl.min.self-8a40746a094cfdde4b396d4e88457397b744d7042d3cd8f7dd0aaa9c1814a4c5.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/moment.self-c99e0f02d41c61d0fd120e8fde6f9277b7ade69ecdac6c27872f5e631fb6cf38.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/bootstrap-datetimepicker.self-f7eed811e1c58d1cdbc448230279684b07653dcf7d067a676dfa60ad370f8407.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/moment/ru.self-58fad0e6c5e51bdf3f357ccc5e991e7c729463209b9aaaa3cdd88a7cc4d40396.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/clients.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/good_orders.self-d331dccd13dc6e7488e67957b8c01280426ac2c3cbee54643d32edcbddaf8877.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/goods.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/growl_messages.self-398f787b13e0f4b46ee38392cc4606d6883a92b8f79cd19a9e3c5c4f358cfb0d.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/main.self-20066a7e08ecc2d7b937fa15cc8dcd176775c91de22295d01937a7e70ce1b6d0.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/orders.self-7d901b68ad4042e7ae96cfa954376eaa73a047209534c856c6efc73a51a42d81.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/password_resets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/role_users.self-1878dd443f16e8cfe65a1150cdfbb48d9d1fde90d019b6ad8407f7db197b2934.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/roles.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/sidebar.self-9de08734b770e1d724d9ec0f5cc40ed784c495e1f328ac6ad09b33b4ed037919.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/welcome.self-62fe1ba3a628b58f4fd05bd5c07745afba414a81bf6bcf6667b043c255efe449.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/application.self-16c207b3ca1b52afcfc7f4b662487caf1bbe084a6656bb15f693ab9de2d11be7.js?body=1" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/logo-6f1545a4a342de939e2a3a77e7f704975b28d8157a9e4d45050a667eca64a54b.png" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/gears-c73a2796db66a2ae730c595dc9cddfbbbd319737e0eaa442bf5318c6d538e167.gif" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/intro-fcbfae1e42f1d4ee8bc05f4a9f22c85215afd391b7fb909aa112346803c70dd1.woff" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/open_sans-7a723d2f99415f393e2537d9b0b0ba4c1b4d7a1ea964d1abdce0f310d92643ad.woff" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/fontawesome-webfont-2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe.woff2" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/open_sans_light-09fd48874849a3dfa4a496483dd50687a91062ed0f57c9f00d3b73a394f50337.woff" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/open_sans_bold-0628cef3bdb6e9823751f942a02252ae562bdfb98f94f2de68e176c35b7c84ba.woff" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/assets/favicon-32x32-4ca470fc04392072361a63750d46a551c827c63cb660acbcf899231936339d8d.png" for 127.0.0.1 at 2017-06-26 20:11:08 +0300
+
+
+Started GET "/orders/search?utf8=%E2%9C%93&search_good_article=&search_good_title=&search_good_short_description=&search_good_full_description=&search_good_base_price0=&search_good_base_price1=&search_good_current_price0=&search_good_current_price1=&search_good_quantity_in_stock0=&search_good_quantity_in_stock1=&search_good_minimum_quantity0=&search_good_minimum_quantity1=&search_good_order_digit0=&search_good_order_digit1=&search_client_name=Sasha&search_client_phone=&search_client_address=&search_client_email=&search_order_number=&search_order_good_order_goods=&search_order_date0=&search_order_date1=&search_order_payment_method=&search_order_delivery_method=&search_order_cost_goods0=&search_order_cost_goods1=&search_order_total_cost0=&search_order_total_cost1=&commit=%D0%98%D1%81%D0%BA%D0%B0%D1%82%D1%8C" for 127.0.0.1 at 2017-06-26 20:11:24 +0300
+Processing by OrdersController#search as HTML
+  Parameters: {"utf8"=>"✓", "search_good_article"=>"", "search_good_title"=>"", "search_good_short_description"=>"", "search_good_full_description"=>"", "search_good_base_price0"=>"", "search_good_base_price1"=>"", "search_good_current_price0"=>"", "search_good_current_price1"=>"", "search_good_quantity_in_stock0"=>"", "search_good_quantity_in_stock1"=>"", "search_good_minimum_quantity0"=>"", "search_good_minimum_quantity1"=>"", "search_good_order_digit0"=>"", "search_good_order_digit1"=>"", "search_client_name"=>"Sasha", "search_client_phone"=>"", "search_client_address"=>"", "search_client_email"=>"", "search_order_number"=>"", "search_order_good_order_goods"=>"", "search_order_date0"=>"", "search_order_date1"=>"", "search_order_payment_method"=>"", "search_order_delivery_method"=>"", "search_order_cost_goods0"=>"", "search_order_cost_goods1"=>"", "search_order_total_cost0"=>"", "search_order_total_cost1"=>"", "commit"=>"Искать"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mRoleUser Load (0.5ms)[0m  [1mSELECT  "role_users".* FROM "role_users" WHERE "role_users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mRoleUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "role_users" WHERE "role_users"."user_id" = $1 AND "role_users"."id" = $2 LIMIT 1  [["user_id", 1], ["id", 1]]
+  [1m[36mGood Load (0.4ms)[0m  [1mSELECT "goods".* FROM "goods"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "goods".* FROM "goods"
+  [1m[36mSQL (60.8ms)[0m  [1mSELECT "orders"."id" AS t0_r0, "orders"."client_id" AS t0_r1, "orders"."order_number" AS t0_r2, "orders"."payment_method" AS t0_r3, "orders"."delivery_method" AS t0_r4, "orders"."list_products" AS t0_r5, "orders"."cost_goods" AS t0_r6, "orders"."total_cost" AS t0_r7, "orders"."order_date" AS t0_r8, "orders"."created_at" AS t0_r9, "orders"."updated_at" AS t0_r10, "clients"."id" AS t1_r0, "clients"."name" AS t1_r1, "clients"."phone" AS t1_r2, "clients"."address" AS t1_r3, "clients"."email" AS t1_r4, "clients"."created_at" AS t1_r5, "clients"."updated_at" AS t1_r6, "good_orders"."id" AS t2_r0, "good_orders"."good_id" AS t2_r1, "good_orders"."order_id" AS t2_r2, "good_orders"."digit" AS t2_r3, "good_orders"."created_at" AS t2_r4, "good_orders"."updated_at" AS t2_r5, "goods"."id" AS t3_r0, "goods"."title" AS t3_r1, "goods"."short_description" AS t3_r2, "goods"."full_description" AS t3_r3, "goods"."list_id_images" AS t3_r4, "goods"."base_price" AS t3_r5, "goods"."current_price" AS t3_r6, "goods"."quantity_in_stock" AS t3_r7, "goods"."article" AS t3_r8, "goods"."minimum_quantity" AS t3_r9, "goods"."created_at" AS t3_r10, "goods"."updated_at" AS t3_r11 FROM "orders" LEFT OUTER JOIN "clients" ON "clients"."id" = "orders"."client_id" LEFT OUTER JOIN "good_orders" ON "good_orders"."order_id" = "orders"."id" LEFT OUTER JOIN "goods" ON "goods"."id" = "good_orders"."good_id" WHERE (clients.name ilike '%Sasha%')[0m
+  Rendered orders/search.html.haml within layouts/application (81.8ms)
+  [1m[35mRole Load (0.4ms)[0m  SELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered application/_sidebar.html.haml (4.3ms)
+  Rendered application/_flash_messages.html.haml (0.1ms)
+  [1m[36mSQL (12.7ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2017-06-26 17:11:24.274318' WHERE "users"."id" = $1[0m  [["id", 1]]
+Completed 200 OK in 169ms (Views: 87.0ms | ActiveRecord: 75.7ms)
